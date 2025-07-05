@@ -1,5 +1,8 @@
 # Zabbix template for Proxmox Backup Server monitoring
 
+> **GitHub Repository**: [codyssey-ltd/zbx-tmplt-pbs](https://github.com/codyssey-ltd/zbx-tmplt-pbs)  
+> For the latest template files and documentation, visit the GitHub repository.
+
 - [Zabbix template for Proxmox Backup Server monitoring](#zabbix-template-for-proxmox-backup-server-monitoring)
   - [Macros](#macros)
   - [Items](#items)
