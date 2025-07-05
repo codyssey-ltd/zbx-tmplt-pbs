@@ -9,13 +9,13 @@
     - [Trigger prototypes](#trigger-prototypes)
   - [Usage](#usage)
 
-Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
+Tested on Zabbix 7.0 and Proxmox Backup Server 3.4
 
 ## Macros
 
 | Macro                          | Default value                          | Description                                                                                                |
 | ------------------------------ | -------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `{$PBS.NODE.NAME}`             | `pbs`                                  | Node name of PBS. Needed system info (CPU/RAM, etc of PBS server)                                          |
+| `{$PBS.NODE.NAME}`             | `localhost`                            | Node name of PBS. Needed system info (CPU/RAM, etc of PBS server)                                          |
 | `{$PBS.TOKEN.ID}`              | `USER@REALM!TOKENID`                   | API tokens allow stateless access to most parts of the REST API by another system, software or API client. |
 | `{$PBS.TOKEN.SECRET}`          | `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` | Secret key.                                                                                                |
 | `{$PBS.URL.PORT}`              | `8007`                                 | The API uses the HTTPS protocol and the server listens to port 8007 by default.                            |
@@ -34,8 +34,20 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 | PBS: Node status                         | `pbs.node.status`                   | HTTP agent                          | Node info and status                    |
 | PBS: Failed tasks                        | `pbs.tasks.failed`                  | HTTP agent                          | Failed tasks for all time               |
 | PBS: Failed backup tasks count           | `pbs.tasks.failed.count_backup`     | Dependent (from `pbs.tasks.failed`) | Failed backup tasks count               |
+| PBS: Failed Garbage Collection tasks count | `pbs.tasks.failed.count_gc`       | Dependent (from `pbs.tasks.failed`) | Failed Garbage Collection tasks count   |
+| PBS: Failed prune tasks count            | `pbs.tasks.failed.count_prune`      | Dependent (from `pbs.tasks.failed`) | Failed prune tasks count                |
+| PBS: Failed sync tasks count             | `pbs.tasks.failed.count_sync`       | Dependent (from `pbs.tasks.failed`) | Failed sync tasks count                 |
+| PBS: Failed verify tasks count           | `pbs.tasks.failed.count_verify`     | Dependent (from `pbs.tasks.failed`) | Failed verify tasks count               |
 | PBS: Last failed backup task             | `pbs.tasks.failed.last_backup`      | Dependent (from `pbs.tasks.failed`) | Last failed backup task data            |
 | PBS: Last failed backup task time        | `pbs.tasks.failed.last_backup_time` | Dependent (from `pbs.tasks.failed`) | Last failed backup task time (unixtime) |
+| PBS: Last failed Garbage Collection task | `pbs.tasks.failed.last_gc`          | Dependent (from `pbs.tasks.failed`) | Last failed Garbage Collection task data |
+| PBS: Last failed Garbage Collection task time | `pbs.tasks.failed.last_gc_time` | Dependent (from `pbs.tasks.failed`) | Last failed Garbage Collection task time (unixtime) |
+| PBS: Last prune task                     | `pbs.tasks.failed.last_prune`       | Dependent (from `pbs.tasks.failed`) | Last failed prune task data             |
+| PBS: Last failed prune task time         | `pbs.tasks.failed.last_prune_time`  | Dependent (from `pbs.tasks.failed`) | Last failed prune task time (unixtime)  |
+| PBS: Last failed sync task               | `pbs.tasks.failed.last_sync`        | Dependent (from `pbs.tasks.failed`) | Last failed sync task data              |
+| PBS: Last failed sync task time          | `pbs.tasks.failed.last_sync_time`   | Dependent (from `pbs.tasks.failed`) | Last failed sync task time (unixtime)   |
+| PBS: Last verify task                    | `pbs.tasks.failed.last_verify`      | Dependent (from `pbs.tasks.failed`) | Last failed verify task data            |
+| PBS: Last failed verify task time        | `pbs.tasks.failed.last_verify_time` | Dependent (from `pbs.tasks.failed`) | Last failed verify task time (unixtime) |
 | PBS: Version                             | `pbs.version`                       | HTTP agent                          | PBS Version                             |
 | PBS: Node status: PBS Node: cpu usage    | `pbs.node.cpu`                      | Dependent (from `pbs.node.status`)  | Node CPU Usage in percent               |
 | PBS: Node status: PBS Node: kernel       | `pbs.node.kversion`                 | Dependent (from `pbs.node.status`)  | Node kernel version                     |
@@ -63,7 +75,11 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 | ------------------------------ | -------- | ----------------------------------------------------- |
 | PBS: API service not available | High     | PBS Api is unavailable                                |
 | PBS: New failed backup task    | Average  | New failed backup task since last 24h                 |
-| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.STORAGE.PUSE.MAX.WARN}` %)   |
+| PBS: New failed Garbage Collection task | Average | New failed Garbage Collection task since last 24h |
+| PBS: New failed Prune task     | Average  | New failed Prune task since last 24h                 |
+| PBS: New failed Sync task      | Average  | New failed Sync task since last 24h                  |
+| PBS: New failed Verification task | Average | New failed Verification task since last 24h        |
+| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.CPU.PUSE.MAX.WARN}` %)      |
 | PBS: Node high memory usage    | Average  | High memory usage (> `{$PBS.MEMORY.PUSE.MAX.WARN}` %) |
 | PBS: Node high swap usage      | Average  | High swap usage (> `{$PBS.SWAP.PUSE.MAX.WARN}` %)     |
 | PBS: Node high root usage      | Average  | High root usage (> `{$PBS.ROOT.PUSE.MAX.WARN}` %)     |
